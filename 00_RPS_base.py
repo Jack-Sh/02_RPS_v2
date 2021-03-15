@@ -110,6 +110,8 @@ while end_game == "no":
     # Get computer choice
     for item in range(0, 20):
         comp_choice = random.choice(rps_list[:-1])
+        
+    # Compare choices
 
     # End game if exit code is typed
     if choose == "xxx":
