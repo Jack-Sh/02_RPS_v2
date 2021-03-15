@@ -49,14 +49,17 @@ def choice_checker(question, valid_list, error):
 
         if response == "r" or response == "rock":
             return response
+
         elif response == "p" or response == "paper":
             return response
+
         elif response == "s" or response == "scissors":
             return response
 
         # check for exit code...
         elif response == "xxx":
             return response
+
         else:
             print(error)
 
@@ -73,6 +76,7 @@ rps_list = ["rock", "paper", "scissors", "xxx"]
 
 # Ask user for # of rounds then loop...
 rounds_played = 0
+
 choose_instruction = "Please choose rock (r) paper (p) or scissors (s) "
 
 # Ask user for # of rounds
@@ -87,15 +91,21 @@ while end_game == "no":
     print()
     if rounds == "":
         heading = "Continuous Mode: Round {}".format(rounds_played + 1)
+
     else:
         heading = "Rounds {} of {}".format(rounds_played + 1, rounds)
 
     print(heading)
-    choose = input("{}or 'xxx' to end: ".format(choose_instruction))
+
+    if rounds_played == rounds - 1:
+        end_game = "yes"
+
+    choose_instruction = "Please choose rock (r) paper (p) or scissors (s) "
+    print()
+    choose_error = "Please choose from rock / paper / scissors (or 'xxx' to quit) "
 
     # Ask user for choice and check that it's valid
-    choose = choice_checker("Choose rock / paper / scissors (r/p/s): ", rps_list,
-                                 "Please choose from rock / paper / scissors (or 'xxx to quit)")
+    choose = choice_checker(choose_instruction, rps_list, choose_error)
 
     # End game if exit code is typed
     if choose == "xxx":
