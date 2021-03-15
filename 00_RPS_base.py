@@ -107,6 +107,10 @@ while end_game == "no":
     # Ask user for choice and check that it's valid
     choose = choice_checker(choose_instruction, rps_list, choose_error)
 
+    # Get computer choice
+    for item in range(0, 20):
+        comp_choice = random.choice(rps_list[:-1])
+
     # End game if exit code is typed
     if choose == "xxx":
         break
