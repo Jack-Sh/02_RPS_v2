@@ -47,13 +47,16 @@ def choice_checker(question, valid_list, error):
             if response == item[0] or response == item:
                 return response
 
-        if response == "r" or response == "rock":
+        if response == "rock" or response == "r":
+            response = "rock"
             return response
 
-        elif response == "p" or response == "paper":
+        elif response == "paper" or response == "p":
+            response = "paper"
             return response
 
-        elif response == "s" or response == "scissors":
+        elif response == "scissors" or response == "sc":
+            response = "scissors"
             return response
 
         # check for exit code...
@@ -105,19 +108,35 @@ while end_game == "no":
     choose_error = "Please choose from rock / paper / scissors (or 'xxx' to quit) "
 
     # Ask user for choice and check that it's valid
-    choose = choice_checker(choose_instruction, rps_list, choose_error)
+    user_choice = choice_checker(choose_instruction, rps_list, choose_error)
 
     # Get computer choice
-    for item in range(0, 20):
-        comp_choice = random.choice(rps_list[:-1])
+    comp_choice = random.choice(rps_list[:-1])
         
     # Compare choices
+    if comp_choice == user_choice:
+        result = "tie"
+    elif comp_choice == "rock" and user_choice == "paper":
+        result = "won"
+    elif comp_choice == "paper" and user_choice == "scissors":
+        result = "won"
+    elif comp_choice == "scissors" and user_choice == "rock":
+        result = "won"
+    else:
+        result = "loss"
+
+    if result == "tie":
+        feedback = "It's a tie!"
+    elif result == "won":
+        feedback = " Congratulations you won!"
+    else:
+        feedback = "You lost (better luck next time)"
 
     # End game if exit code is typed
-    if choose == "xxx":
+    if user_choice == "xxx":
         break
 
-    print("You chose {}".format(choose))
+    print("You chose: {}\nComputer chose: {}\n{}".format(user_choice, comp_choice, feedback))
 
     rounds_played += 1
 
