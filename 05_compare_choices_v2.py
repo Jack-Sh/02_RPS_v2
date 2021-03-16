@@ -8,11 +8,7 @@ for item in rps_list:
         user_index += 1
 
         # Compare options...
-        if comp_choice == "rock" and user_choice == "rock":
-            result = "tie"
-        elif comp_choice == "paper" and user_choice == "paper":
-            result = "tie"
-        elif comp_choice == "scissors" and user_choice == "scissors":
+        if comp_choice == user_choice:
             result = "tie"
         elif comp_choice == "rock" and user_choice == "paper":
             result = "won"
@@ -20,11 +16,7 @@ for item in rps_list:
             result = "won"
         elif comp_choice == "scissors" and user_choice == "rock":
             result = "won"
-        elif comp_choice == "rock" and user_choice == "scissors":
-            result = "loss"
-        elif comp_choice == "paper" and user_choice == "rock":
-            result = "loss"
-        elif comp_choice == "scissors" and user_choice == "paper":
+        else:
             result = "loss"
 
         print("You chose {}, the computer chose {}. \n"
@@ -32,3 +24,4 @@ for item in rps_list:
         print()
 
     comp_index += 1
+
