@@ -80,6 +80,9 @@ rps_list = ["rock", "paper", "scissors", "xxx"]
 # Ask user for # of rounds then loop...
 rounds_played = 0
 
+rounds_lost = 0
+rounds_drawn = 0
+
 choose_instruction = "Please choose rock (r) paper (p) or scissors (s) "
 
 # Ask user for # of rounds
@@ -116,6 +119,7 @@ while end_game == "no":
     # Compare choices
     if comp_choice == user_choice:
         result = "tie"
+        rounds_drawn += 1
     elif comp_choice == "rock" and user_choice == "paper":
         result = "won"
     elif comp_choice == "paper" and user_choice == "scissors":
@@ -124,6 +128,7 @@ while end_game == "no":
         result = "won"
     else:
         result = "loss"
+        rounds_lost += 1
 
     if result == "tie":
         feedback = "It's a tie!"
@@ -144,3 +149,14 @@ while end_game == "no":
 # If 'yes' show game history
 
 # Show game statistics
+
+# Quick calculations (stats)
+rounds_won = rounds_played - rounds_lost - rounds_drawn
+
+# End of game statements
+print()
+print('***** End Game Summary *****')
+print("Won: {}   |\t Lost: {} \t|   Draw: {}"
+      .format(rounds_won, rounds_lost, rounds_drawn))
+print()
+print("Thanks for Playing!")
