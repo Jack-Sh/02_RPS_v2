@@ -19,10 +19,13 @@ def choice_checker(question, valid_list, error):
                 return response
 
         if response == "r" or response == "rock":
+            response = "rock"
             return response
         elif response == "p" or response == "paper":
+            response = "paper"
             return response
         elif response == "s" or response == "scissors":
+            response = "scissors"
             return response
 
         # check for exit code...

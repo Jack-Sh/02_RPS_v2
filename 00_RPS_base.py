@@ -10,7 +10,7 @@ def check_rounds():
 
         round_error = "Please enter an integer greater than 0"
 
-        # If user DOESN'T type enter check to see
+        # If user DOESN'T type <enter> check to see
         # if it is a valid integer
 
         if response != "":
@@ -44,7 +44,7 @@ def choice_checker(question, valid_list, error):
         # full item name is returned
 
         for item in valid_list:
-            if response == item[0] or response == item:
+            if response == item[1] or response == item:
                 return response
 
         if response == "rock" or response == "r":
@@ -55,7 +55,7 @@ def choice_checker(question, valid_list, error):
             response = "paper"
             return response
 
-        elif response == "scissors" or response == "sc":
+        elif response == "scissors" or response == "s":
             response = "scissors"
             return response
 
@@ -98,10 +98,10 @@ while end_game == "no":
     else:
         heading = "Rounds {} of {}".format(rounds_played + 1, rounds)
 
-    print(heading)
+    if rounds_played == rounds:
+        break
 
-    if rounds_played == rounds - 1:
-        end_game = "yes"
+    print(heading)
 
     choose_instruction = "Please choose rock (r) paper (p) or scissors (s) "
     print()
@@ -128,7 +128,7 @@ while end_game == "no":
     if result == "tie":
         feedback = "It's a tie!"
     elif result == "won":
-        feedback = " Congratulations you won!"
+        feedback = "Congratulations you won!"
     else:
         feedback = "You lost (better luck next time)"
 

@@ -39,8 +39,8 @@ while end_game == "no":
     else:
         heading = "Rounds {} of {}".format(rounds_played + 1, rounds)
 
-    if rounds_played == rounds - 1:
-        end_game = "yes"
+    if rounds_played == rounds:
+        break
 
     print(heading)
     choose = input("{}or 'xxx' to end: ".format(choose_instruction))
