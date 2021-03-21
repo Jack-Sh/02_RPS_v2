@@ -82,6 +82,7 @@ rounds_played = 0
 
 rounds_lost = 0
 rounds_drawn = 0
+rounds_won = 0
 
 choose_instruction = "Please choose rock (r) paper (p) or scissors (s) "
 
@@ -117,28 +118,41 @@ while end_game == "no":
     comp_choice = random.choice(rps_list[:-1])
         
     # Compare choices
+
+    game_summary = []
+
     if comp_choice == user_choice:
         result = "tie"
-        rounds_drawn += 1
+
     elif comp_choice == "rock" and user_choice == "paper":
         result = "won"
+
     elif comp_choice == "paper" and user_choice == "scissors":
         result = "won"
+
     elif comp_choice == "scissors" and user_choice == "rock":
         result = "won"
+
     else:
         result = "loss"
-        rounds_lost += 1
 
     if result == "tie":
         feedback = "It's a tie!"
+        rounds_drawn += 1
+
     elif result == "won":
         feedback = "Congratulations you won!"
+        rounds_won += 1
+
     else:
         feedback = "You lost (better luck next time)"
+        rounds_lost += 1
+
+    game_summary.append(result)
 
     # End game if exit code is typed
     if user_choice == "xxx":
+        rounds_lost -= 1
         break
 
     print("You chose: {}\nComputer chose: {}\n{}".format(user_choice, comp_choice, feedback))
@@ -146,12 +160,19 @@ while end_game == "no":
     rounds_played += 1
 
 # Ask user if they want to see their game history
+
 # If 'yes' show game history
+    print()
+    print("***** Game History *****")
+    for game in game_summary:
+        print(game)
+
+# Calculate Game Stats
+percent_win = rounds_won / rounds_played * 100
+percent_lose = rounds_lost / rounds_played * 100
+percent_drawn = rounds_drawn / rounds_played * 100
 
 # Show game statistics
-
-# Quick calculations (stats)
-rounds_won = rounds_played - rounds_lost - rounds_drawn
 
 # End of game statements
 print()
