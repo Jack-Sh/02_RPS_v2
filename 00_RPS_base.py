@@ -104,6 +104,16 @@ def instructions():
     print("***** Have Fun! *****")
 
 
+def statement_generator(statement, decoration):
+
+    sides = decoration * 5
+    statement = "{} {} {}".format(sides, statement, sides)
+
+    print(statement)
+
+    return ""
+
+
 # Main routine goes here
 
 
@@ -127,7 +137,7 @@ rounds_won = 0
 
 # Game heading
 print()
-print("***** Let's Get Started! *****")
+statement_generator("Let's Get Started!","*")
 print()
 
 choose_instruction = "Please choose rock (r) paper (p) or scissors (s) "
