@@ -1,5 +1,7 @@
 import random
 
+game_summary = []
+
 # Functions go here
 
 
@@ -67,6 +69,41 @@ def choice_checker(question, valid_list, error):
             print(error)
 
 
+def yes_no(question):
+    valid = False
+    while not valid:
+        response = input(question).lower()
+
+        if response == "yes" or response == "y":
+            response = "yes"
+            return response
+
+        elif response == "no" or response == "n":
+            response = "no"
+            return response
+
+        else:
+            print("Please enter either Yes or No")
+
+
+def instructions():
+    print()
+    print("***** How to Play *****")
+    print()
+    print("Choose either a number of rounds or press <enter> for continuous mode")
+    print()
+    print("Then for each round choose between:")
+    print("rock, paper, scissors (or 'xxx' to quit)")
+    print("You can also type r / p / s (instead of the whole word)")
+    print()
+    print("The rules are...")
+    print("- Rock beats scissors")
+    print("- Paper beats rock")
+    print("- Scissors beats paper")
+    print()
+    print("***** Have Fun! *****")
+
+
 # Main routine goes here
 
 
@@ -75,7 +112,11 @@ yes_no_list = ["yes", "no"]
 rps_list = ["rock", "paper", "scissors", "xxx"]
 
 # Ask user if they have played before.
+played_before = yes_no("Have you played the game before? ")
+
 # If 'no' show instructions
+if played_before == "no":
+    instructions()
 
 # Ask user for # of rounds then loop...
 rounds_played = 0
@@ -83,6 +124,11 @@ rounds_played = 0
 rounds_lost = 0
 rounds_drawn = 0
 rounds_won = 0
+
+# game begins
+print()
+print("***** Let's Get Started! *****")
+print()
 
 choose_instruction = "Please choose rock (r) paper (p) or scissors (s) "
 
@@ -119,8 +165,6 @@ while end_game == "no":
         
     # Compare choices
 
-    game_summary = []
-
     if comp_choice == user_choice:
         result = "tie"
 
@@ -148,7 +192,9 @@ while end_game == "no":
         feedback = "You lost (better luck next time)"
         rounds_lost += 1
 
-    game_summary.append(result)
+    outcome = "Round {}: {}".format(rounds_played + 1, result)
+
+    game_summary.append(outcome)
 
     # End game if exit code is typed
     if user_choice == "xxx":
@@ -162,10 +208,10 @@ while end_game == "no":
 # Ask user if they want to see their game history
 
 # If 'yes' show game history
-    print()
-    print("***** Game History *****")
-    for game in game_summary:
-        print(game)
+print()
+print("***** Game History *****")
+for game in game_summary:
+    print(game)
 
 # Calculate Game Stats
 percent_win = rounds_won / rounds_played * 100
@@ -173,6 +219,10 @@ percent_lose = rounds_lost / rounds_played * 100
 percent_drawn = rounds_drawn / rounds_played * 100
 
 # Show game statistics
+print()
+print("***** Game Statistics *****")
+print("Win: {}, ({:.0f}%)\nLoss {}, ({:.0f}%)\nDraw {}, ({:.0f}%)"
+      .format(rounds_won, percent_win, rounds_lost, percent_lose, rounds_drawn, percent_drawn))
 
 # End of game statements
 print()
