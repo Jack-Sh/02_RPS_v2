@@ -125,7 +125,7 @@ rounds_lost = 0
 rounds_drawn = 0
 rounds_won = 0
 
-# game begins
+# Game heading
 print()
 print("***** Let's Get Started! *****")
 print()
@@ -153,6 +153,7 @@ while end_game == "no":
 
     print(heading)
 
+    # errors
     choose_instruction = "Please choose rock (r) paper (p) or scissors (s) "
     print()
     choose_error = "Please choose from rock / paper / scissors (or 'xxx' to quit) "
@@ -164,7 +165,6 @@ while end_game == "no":
     comp_choice = random.choice(rps_list[:-1])
         
     # Compare choices
-
     if comp_choice == user_choice:
         result = "tie"
 
@@ -178,7 +178,7 @@ while end_game == "no":
         result = "won"
 
     else:
-        result = "loss"
+        result = "lost"
 
     if result == "tie":
         feedback = "It's a tie!"
@@ -192,26 +192,34 @@ while end_game == "no":
         feedback = "You lost (better luck next time)"
         rounds_lost += 1
 
-    outcome = "Round {}: {}".format(rounds_played + 1, result)
-
-    game_summary.append(outcome)
-
     # End game if exit code is typed
     if user_choice == "xxx":
         rounds_lost -= 1
         break
 
+    # if the result is a loss or a win print 'you lost' or 'you won'
+    # if the result is a tie print 'it's a tie'
+    if result == "lost" or result == "won":
+        outcome = "Round {}: {} vs {} - you {}".format(rounds_played + 1, user_choice, comp_choice, result)
+    else:
+        outcome = "Round {}: {} vs {} - it's a {}".format(rounds_played + 1, user_choice, comp_choice, result)
+
+    game_summary.append(outcome)
+
+    # output both choices and feedback
     print("You chose: {}\nComputer chose: {}\n{}".format(user_choice, comp_choice, feedback))
 
     rounds_played += 1
 
 # Ask user if they want to see their game history
+game_history = yes_no("Do you want to see the game history? ")
 
 # If 'yes' show game history
-print()
-print("***** Game History *****")
-for game in game_summary:
-    print(game)
+if game_history == "yes":
+    print()
+    print("***** Game History *****")
+    for game in game_summary:
+        print(game)
 
 # Calculate Game Stats
 percent_win = rounds_won / rounds_played * 100
@@ -225,9 +233,5 @@ print("Win: {}, ({:.0f}%)\nLoss {}, ({:.0f}%)\nDraw {}, ({:.0f}%)"
       .format(rounds_won, percent_win, rounds_lost, percent_lose, rounds_drawn, percent_drawn))
 
 # End of game statements
-print()
-print('***** End Game Summary *****')
-print("Won: {}   |\t Lost: {} \t|   Draw: {}"
-      .format(rounds_won, rounds_lost, rounds_drawn))
 print()
 print("Thanks for Playing!")
