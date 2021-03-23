@@ -88,7 +88,7 @@ def yes_no(question):
 
 def instructions():
     print()
-    print("***** How to Play *****")
+    statement_generator("How to Play", "*")
     print()
     print("Choose either a number of rounds or press <enter> for continuous mode")
     print()
@@ -101,7 +101,7 @@ def instructions():
     print("- Paper beats rock")
     print("- Scissors beats paper")
     print()
-    print("***** Have Fun! *****")
+    statement_generator("Have Fun", "*")
 
 
 def statement_generator(statement, decoration):
@@ -122,6 +122,8 @@ yes_no_list = ["yes", "no"]
 rps_list = ["rock", "paper", "scissors", "xxx"]
 
 # Ask user if they have played before.
+statement_generator("Welcome to the RPS Game", "*")
+print()
 played_before = yes_no("Have you played the game before? ")
 
 # If 'no' show instructions
@@ -137,7 +139,7 @@ rounds_won = 0
 
 # Game heading
 print()
-statement_generator("Let's Get Started!","*")
+statement_generator("Let's Get Started","!")
 print()
 
 choose_instruction = "Please choose rock (r) paper (p) or scissors (s) "
@@ -161,7 +163,7 @@ while end_game == "no":
     if rounds_played == rounds:
         break
 
-    print(heading)
+    statement_generator(heading, "-")
 
     # errors
     choose_instruction = "Please choose rock (r) paper (p) or scissors (s) "
@@ -193,14 +195,21 @@ while end_game == "no":
     if result == "tie":
         feedback = "It's a tie!"
         rounds_drawn += 1
+        statement_decoration = "👔"
 
     elif result == "won":
-        feedback = "Congratulations you won!"
+        feedback = "Congratulations you won"
         rounds_won += 1
+        statement_decoration = "🏆"
 
     else:
         feedback = "You lost (better luck next time)"
         rounds_lost += 1
+        statement_decoration = "❌"
+
+    if user_choice == "xxx" and rounds == 1:
+        print("You need to play at least 1 round")
+        print(heading)
 
     # End game if exit code is typed
     if user_choice == "xxx":
@@ -217,7 +226,9 @@ while end_game == "no":
     game_summary.append(outcome)
 
     # output both choices and feedback
-    print("You chose: {}\nComputer chose: {}\n{}".format(user_choice, comp_choice, feedback))
+    print("You chose: {}\nComputer chose: {}".format(user_choice, comp_choice,))
+
+    statement_generator(feedback, statement_decoration)
 
     rounds_played += 1
 
@@ -227,7 +238,7 @@ game_history = yes_no("Do you want to see the game history? ")
 # If 'yes' show game history
 if game_history == "yes":
     print()
-    print("***** Game History *****")
+    statement_generator("Game History", "=")
     for game in game_summary:
         print(game)
 
@@ -244,4 +255,4 @@ print("Win: {}, ({:.0f}%)\nLoss {}, ({:.0f}%)\nDraw {}, ({:.0f}%)"
 
 # End of game statements
 print()
-print("Thanks for Playing!")
+statement_generator("Thanks for Playing","!")
