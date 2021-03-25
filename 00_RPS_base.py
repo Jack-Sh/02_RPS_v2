@@ -238,4 +238,4 @@ print("Win: {}, ({:.0f}%)\nLoss {}, ({:.0f}%)\nDraw {}, ({:.0f}%)"
 
 # End of game statements
 print()
-statement_generator("Thanks for Playing","!")
+statement_generator("Thanks for Playing", "!")

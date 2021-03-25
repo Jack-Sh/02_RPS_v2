@@ -33,7 +33,7 @@ def check_rounds():
         return response
 
 
-def choice_checker(question, valid_list, error):
+def choice_checker(question, valid_list, error,):
 
     valid = False
     while not valid:
@@ -51,23 +51,6 @@ def choice_checker(question, valid_list, error):
 
         else:
             print(error)
-
-
-def yes_no(question):
-    valid = False
-    while not valid:
-        response = input(question).lower()
-
-        if response == "yes" or response == "y":
-            response = "yes"
-            return response
-
-        elif response == "no" or response == "n":
-            response = "no"
-            return response
-
-        else:
-            print("Please enter either Yes or No")
 
 
 def instructions():
@@ -108,7 +91,7 @@ rps_list = ["rock", "paper", "scissors", "xxx"]
 # Ask user if they have played before.
 statement_generator("Welcome to the RPS Game", "*")
 print()
-played_before = yes_no("Have you played the game before? ")
+played_before = choice_checker(yes_no_list("Have you played the game before? "))
 
 # If 'no' show instructions
 if played_before == "no":
