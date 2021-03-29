@@ -5,6 +5,8 @@ game_summary = []
 # Functions go here
 
 
+# Number checking function, response must be an integer more than 0
+# also accepts <enter> for infinite rounds
 def check_rounds():
     while True:
         # Ask user how many rounds
@@ -33,7 +35,9 @@ def check_rounds():
         return response
 
 
-def choice_checker(question, valid_list, error):
+# Choice checker function, response must be out of a specified valid list
+# also works for the first letter of the word
+def choice_checker(question, valid_list, error,):
 
     valid = False
     while not valid:
@@ -53,23 +57,7 @@ def choice_checker(question, valid_list, error):
             print(error)
 
 
-def yes_no(question):
-    valid = False
-    while not valid:
-        response = input(question).lower()
-
-        if response == "yes" or response == "y":
-            response = "yes"
-            return response
-
-        elif response == "no" or response == "n":
-            response = "no"
-            return response
-
-        else:
-            print("Please enter either Yes or No")
-
-
+# Functions to display instructions when called
 def instructions():
     print()
     statement_generator("How to Play", "*")
@@ -88,6 +76,7 @@ def instructions():
     statement_generator("Have Fun", "*")
 
 
+# Function to print five symbols / emojis on either side of specified statements
 def statement_generator(statement, decoration):
 
     sides = decoration * 5
@@ -101,17 +90,20 @@ def statement_generator(statement, decoration):
 # Main routine goes here
 
 
-# Lists of valid response
+# Lists of valid responses to be used when calling choice_checker function
 yes_no_list = ["yes", "no"]
 rps_list = ["rock", "paper", "scissors", "xxx"]
 
 # Ask user if they have played before.
 statement_generator("Welcome to the RPS Game", "*")
 print()
-played_before = yes_no("Have you played the game before? ")
+played_before = "Have you played before? "
+played_before_response = choice_checker(question=played_before,
+                                        valid_list=yes_no_list,
+                                        error="Please choose from yes or no")
 
 # If 'no' show instructions
-if played_before == "no":
+if played_before_response == "no":
     instructions()
 
 # Ask user for # of rounds then loop...
@@ -121,22 +113,27 @@ rounds_lost = 0
 rounds_drawn = 0
 rounds_won = 0
 
-# Game heading
+# Game heading (prints after users answer the 'played_before' question
 print()
-statement_generator("Let's Get Started","!")
+statement_generator("Let's Get Started", "!")
 print()
 
+# Displays at the start of every round
 choose_instruction = "Please choose rock (r) paper (p) or scissors (s) "
 
 # Ask user for # of rounds
 rounds = check_rounds()
 
+# Game looping mechanics
 end_game = "no"
 while end_game == "no":
 
     # Start of Game Play Loop
 
     # Rounds Heading
+    # if the user enters <enter> the continuous rounds heading displays
+    # if user enters a valid integer it displays how many rounds you have
+    # played out of the rounds chosen
     print()
     if rounds == "":
         heading = "Continuous Mode: Round {}".format(rounds_played + 1)
@@ -147,6 +144,7 @@ while end_game == "no":
     if rounds_played == rounds:
         break
 
+    # Prints heading with decoration
     statement_generator(heading, "-")
 
     # errors
@@ -157,18 +155,20 @@ while end_game == "no":
     # Ask user for choice and check that it's valid
     user_choice = choice_checker(choose_instruction, rps_list, choose_error)
 
-    # Get computer choice
+    # Get computer choice (minus xxx from rps_list)
     comp_choice = random.choice(rps_list[:-1])
 
-    # End game if exit code is typed
+    # End game if exit code is typed if user has played more than 1 round
     if user_choice == "xxx" and rounds_played > 0:
         break
 
+    # If user hasn't played one round
+    # display an error and start from beginning
     elif user_choice == "xxx" and rounds_played == 0:
         print("You need to play at least one round!")
         continue
 
-    # Compare choices
+    # Compare user_choice with comp_choice
     if comp_choice == user_choice:
         result = "tie"
 
@@ -184,6 +184,7 @@ while end_game == "no":
     else:
         result = "lost"
 
+    # Justify results and give feedback
     if result == "tie":
         feedback = "It's a tie!"
         rounds_drawn += 1
@@ -201,6 +202,7 @@ while end_game == "no":
 
     # if the result is a loss or a win print 'you lost' or 'you won'
     # if the result is a tie print 'it's a tie'
+    # (for game history)
     if result == "lost" or result == "won":
         outcome = "Round {}: {} vs {} - you {}".format(rounds_played + 1, user_choice, comp_choice, result)
     else:
@@ -208,15 +210,20 @@ while end_game == "no":
 
     game_summary.append(outcome)
 
-    # output both choices and feedback
+    # output both choices and feedback after every round
     print("You chose: {}\nComputer chose: {}".format(user_choice, comp_choice,))
 
+    # Decoration for feedback
     statement_generator(feedback, statement_decoration)
 
+    # Add one round to total rounds played
     rounds_played += 1
 
 # Ask user if they want to see their game history
-game_history = yes_no("Do you want to see the game history? ")
+game_history = "Do you want to see your game history? "
+game_history_response = choice_checker(question=game_history,
+                                       valid_list=yes_no_list,
+                                       error="Please enter yes or no")
 
 # If 'yes' show game history
 if game_history == "yes":
@@ -225,12 +232,12 @@ if game_history == "yes":
     for game in game_summary:
         print(game)
 
-# Calculate Game Stats
+# Calculate game stats in percentages
 percent_win = rounds_won / rounds_played * 100
 percent_lose = rounds_lost / rounds_played * 100
 percent_drawn = rounds_drawn / rounds_played * 100
 
-# Show game statistics
+# Show game statistics in percentages and number of W / L / D
 print()
 print("***** Game Statistics *****")
 print("Win: {}, ({:.0f}%)\nLoss {}, ({:.0f}%)\nDraw {}, ({:.0f}%)"
