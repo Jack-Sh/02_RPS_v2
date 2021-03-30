@@ -188,17 +188,17 @@ while end_game == "no":
     if result == "tie":
         feedback = "It's a tie!"
         rounds_drawn += 1
-        statement_decoration = "👔"
+        statement_decoration = "="
 
     elif result == "won":
         feedback = "Congratulations you won"
         rounds_won += 1
-        statement_decoration = "🏆"
+        statement_decoration = "!"
 
     else:
         feedback = "You lost (better luck next time)"
         rounds_lost += 1
-        statement_decoration = "❌"
+        statement_decoration = "~"
 
     # if the result is a loss or a win print 'you lost' or 'you won'
     # if the result is a tie print 'it's a tie'
