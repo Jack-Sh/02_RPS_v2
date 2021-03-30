@@ -226,7 +226,7 @@ game_history_response = choice_checker(question=game_history,
                                        error="Please enter yes or no")
 
 # If 'yes' show game history
-if game_history == "yes":
+if game_history_response == "yes":
     print()
     statement_generator("Game History", "=")
     for game in game_summary:
